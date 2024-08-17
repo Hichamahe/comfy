@@ -4,34 +4,45 @@ import Link from "next/link";
 import ListProducts from "@/app/products/listProducts";
 import Loading from "@/app/elements/loadingtwo/loading";
 import { useRouter, useSearchParams } from "next/navigation";
-import { getProducts } from "./getProducts";
+import queryString from "query-string";
+import axios from "axios";
 
-function Search() {
+const getProducts = async (searchParams) => {
+  const urlParams = {
+    keyword: searchParams.keyword,
+    page: searchParams.page,
+  };
+
+  const searchQuery = queryString.stringify(urlParams);
+  console.log("searchQuery:", searchQuery);
+
+  try {
+    const { data } = await axios.get(`/api/product?${searchQuery}`);
+    return data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
+  }
+};
+
+function Search({ searchParams }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const [keyword, setKeyword] = useState("");
+  const searchParamsNext = useSearchParams();
+  const [keyword, setKeyword] = useState(searchParams.keyword || "");
   const [loading, setLoading] = useState(false);
+  const [searched, setSearched] = useState(false);
   const [data, setData] = useState(null);
 
-  useEffect(() => {
-    const currentKeyword = searchParams.get("keyword") || "";
-    const currentPage = searchParams.get("page") || "1";
-    setKeyword(currentKeyword);
-
-    if (currentKeyword) {
-      fetchData(currentKeyword, currentPage);
-    }
-  }, [searchParams]);
-
-  const fetchData = async (keyword, page) => {
+  const fetchData = async (params) => {
+    if (!params.keyword) return;
     setLoading(true);
     try {
-      const productsData = await getProducts({ keyword, page });
+      const productsData = await getProducts(params);
       setData(productsData);
     } catch (error) {
-      console.error("Error fetching products:", error);
     } finally {
       setLoading(false);
+      setSearched(true);
     }
   };
 
@@ -43,6 +54,13 @@ function Search() {
       router.push("/search");
     }
   };
+
+  useEffect(() => {
+    const keyword = searchParamsNext.get("keyword") || "";
+    const page = searchParamsNext.get("page") || 1;
+    setKeyword(keyword);
+    fetchData({ keyword, page });
+  }, [searchParamsNext]);
 
   return (
     <section className="">
@@ -78,28 +96,31 @@ function Search() {
             <button
               className="text-white bg-mainbgColor rounded-md px-6 py-2"
               type="submit"
+              onClick={submitHandler}
             >
               Search
             </button>
           </form>
         </div>
         <div className="min-h-40">
-          <Suspense fallback={<Loading />}>
-            {loading ? (
-              <Loading />
-            ) : data?.filteredProductsCount === 0 ? (
-              <h1 className="text-xl font-medium mx-auto text-center">
-                Sorry, can&apos;t find matching products
-              </h1>
-            ) : data ? (
-              <div className="space-y-4">
-                <h1 className="text-xl font-medium">
-                  Total Results : {data?.filteredProductsCount}
+          {searched && (
+            <Suspense fallback={<Loading />}>
+              {loading ? (
+                <Loading />
+              ) : data?.filteredProductsCount === 0 ? (
+                <h1 className="text-xl font-medium mx-auto text-center">
+                  Sorry, can&apos;t find matching products
                 </h1>
-                <ListProducts data={data} />
-              </div>
-            ) : null}
-          </Suspense>
+              ) : (
+                <div className="space-y-4">
+                  <h1 className="text-xl font-medium">
+                    Total Results : {data?.filteredProductsCount}
+                  </h1>
+                  <ListProducts data={data} />
+                </div>
+              )}
+            </Suspense>
+          )}
         </div>
       </div>
     </section>
