@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import ListProducts from "@/app/products/listProducts";
 import Loading from "@/app/elements/loadingtwo/loading";
@@ -104,7 +104,7 @@ function Search({ searchParams }) {
         </div>
         <div className="min-h-40">
           {searched && (
-            <>
+            <Suspense fallback={<Loading />}>
               {loading ? (
                 <Loading />
               ) : data?.filteredProductsCount === 0 ? (
@@ -119,7 +119,7 @@ function Search({ searchParams }) {
                   <ListProducts data={data} />
                 </div>
               )}
-            </>
+            </Suspense>
           )}
         </div>
       </div>
