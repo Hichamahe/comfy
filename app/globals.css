@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none !important;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: DM Sans, sans-serif !important;
+}
+
+a {
+  text-decoration: none !important;
+}
+

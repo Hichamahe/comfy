@@ -1,0 +1,84 @@
+@font-face {
+    font-family: revicons;
+    src: url(../../../../public/revicons.ttf);
+}
+
+.slick-dots li button:before {
+    font-size: 10px !important;
+}
+
+.slick-dots{
+    bottom: 10px !important;
+}
+
+
+.slick-track {
+    display: flex;
+    gap: 1rem !important;
+}
+
+.slick-arrow {
+    position: absolute;    
+    z-index: 1000;
+    height: 50px !important;
+    width: 50px;
+    min-height: 43px;
+    min-width: 43px;
+    outline: 0;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, .5);
+    
+}
+
+.slick-arrow:hover {
+    background-color: #c7ab62;
+    transition-duration: .5s;
+}
+
+.slick-arrow::before {
+    position: relative;
+    font-size: 20px;
+    text-align: center;
+    z-index: 2;
+    display: block;
+    color: #fff;
+    font-family: revicons;
+    box-sizing: border-box;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .slick-arrow {
+        display: none !important;
+    }
+}
+
+.slick-prev {
+    left: 22px;
+}
+
+.slick-prev::before {
+    content: "\e824";
+}
+
+.slick-next {
+    right: 22px;
+}
+
+.slick-next::before {
+    content: "\e825";
+}
+
+@media only screen and (min-width: 550px) {
+    .slick-disabled .slick-track {
+  transform: none !important;
+}
+
+.slick-disabled .slick-arrow {
+  display: none !important;
+}
+
+.slick-disabled .slick-list {
+  overflow: hidden;
+}
+}

@@ -1,0 +1,71 @@
+/* Styles pour les inputs radio */
+.custom-radio {
+    position: relative;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #999;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.custom-radio:checked::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: #c7ab62; /* Couleur de fond pour l'input radio sélectionné */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.custom-radio:hover {
+    border-color: #c7ab62;
+}
+
+/* Styles pour l'input range */
+.custom-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: #eee;
+    background-image: linear-gradient(#222, #222);
+    background-repeat: no-repeat;
+}
+
+.custom-range::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.custom-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background: #c7ab62;
+    border-radius: 50%;
+    box-shadow: 0 0 2px 0 #555;
+    cursor: pointer;
+    height: 1rem;
+    -webkit-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
+    width: 1rem;
+}
+
+
+
+.custom-range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #c7ab62; /* Couleur de fond pour l'input range */
+    cursor: pointer;
+}

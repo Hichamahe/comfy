@@ -1,0 +1,62 @@
+@font-face {
+    font-family: revicons;
+    src: url(../../../../public/revicons.ttf);
+}
+
+.ant-carousel {
+    height: auto;
+}
+
+.slick-slider.active {
+height: auto;
+}
+
+.slick-slide {
+height: auto;
+}
+
+.slick-track {
+height: auto;
+}
+
+.slick-list {
+height: auto;
+}
+
+.slick-arrow {
+    position: absolute;    
+    z-index: 1000;
+    height: 50px !important;
+    width: 50px;
+    min-height: 43px;
+    min-width: 43px;
+    outline: 0;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, .5);
+    
+}
+
+.slick-arrow:hover {
+    background-color: #c7ab62;
+    transition-duration: .5s;
+}
+
+.slick-arrow::before {
+    position: relative;
+    font-size: 20px;
+    text-align: center;
+    z-index: 2;
+    display: block;
+    color: #fff;
+    font-family: revicons;
+    box-sizing: border-box;
+}
+
+.slick-prev::before {
+    content: "\e824";
+}
+
+
+.slick-next::before {
+    content: "\e825";
+}
